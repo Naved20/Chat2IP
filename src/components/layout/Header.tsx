@@ -9,7 +9,7 @@ export default function Header() {
         <Link href="/" className="flex items-center gap-2" aria-label="IPClaim Homepage">
           <BrainCircuit className="h-7 w-7 text-primary" />
           <span className="text-xl font-bold tracking-tight text-foreground sm:text-2xl">
-            IPClaim
+            CHAT2IP
           </span>
         </Link>
         <nav className="flex items-center gap-2">
