@@ -23,8 +23,6 @@ const nextConfig: NextConfig = {
   // Add these two for static export:
   output: 'export',
   distDir: 'out',
-
-  
 };
 
 export default nextConfig;

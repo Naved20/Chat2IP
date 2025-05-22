@@ -49,18 +49,32 @@ const generateAIContentFlow = ai.defineFlow(
     let content: string;
 
     if (input.contentType === 'image') {
-      const {media} = await ai.generate({
+      const result = await ai.generate({
         model: 'googleai/gemini-2.0-flash-exp',
         prompt: input.prompt,
         config: {
-          responseModalities: ['TEXT', 'IMAGE'],
+          responseModalities: ['IMAGE'], // you don't need TEXT if generating only image
         },
       });
-      content = media.url!;
+    
+      // Debug: Log the full result to understand the structure
+      console.log('AI.generate result:', JSON.stringify(result, null, 2));
+    
+      const mediaUrl = result?.media?.url;
+    
+      if (!mediaUrl) {
+        throw new Error('Image generation failed: media URL is undefined.');
+      }
+    
+      content = mediaUrl;
     } else {
       const {text} = await generateAIContentPrompt(input);
-      content = text!;
+      if (!text) {
+        throw new Error('Text generation failed: text is undefined.');
+      }
+      content = text;
     }
+    
 
     const ipHash = SHA256(content).toString();
     const timestamp = Date.now();
